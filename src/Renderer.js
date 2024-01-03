@@ -10,11 +10,11 @@ import "file-saver";
 
 export const GlassesTransformDict = {
   position: {
-    x: 0,
-    y: -0.691,
-    z: -0.875,
+    x: 0.008,
+    y: 1.111,
+    z: 0.669,
   },
-  scale: 1.479,
+  scale: 1.579,
 };
 
 export const RenderOptions = {
@@ -45,9 +45,9 @@ export class Renderer {
   //
   // 	CONSTRUCTOR
   //
-  constructor(canvas) {
+  constructor(canvas, url = "./glasses1.gltf") {
     this.canvas = canvas;
-
+    this.glbUrl = url;
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(
       66,
@@ -127,40 +127,41 @@ export class Renderer {
     );
 
     // Load a Glasses Model
-    gltfLoader.load(
-      // resource URL
-      "./glasses2.gltf",
-      // called when the resource is loaded
-      (gltf) => {
-        console.log(gltf.scene.children);
-        // 	Get the glasses Object3D
-        thisObject.glassesMesh = gltf.scene.children[0];
+    // gltfLoader.load(
+    //   // resource URL
+    //   url,
+    //   // called when the resource is loaded
+    //   (gltf) => {
+    //     console.log(url, "ds");
+    //     console.log(gltf.scene.children);
+    //     // 	Get the glasses Object3D
+    //     thisObject.glassesMesh = gltf.scene.children[0];
 
-        // 	Copy default glasses' transform
-        thisObject.glassesMesh_defaultPosition.copy(
-          thisObject.glassesMesh.position
-        );
-        thisObject.glassesMesh_defaultQuarternion.copy(
-          thisObject.glassesMesh.quaternion
-        );
-        thisObject.glassesMesh_defaultScale.copy(thisObject.glassesMesh.scale);
+    //     // 	Copy default glasses' transform
+    //     thisObject.glassesMesh_defaultPosition.copy(
+    //       thisObject.glassesMesh.position
+    //     );
+    //     thisObject.glassesMesh_defaultQuarternion.copy(
+    //       thisObject.glassesMesh.quaternion
+    //     );
+    //     thisObject.glassesMesh_defaultScale.copy(thisObject.glassesMesh.scale);
 
-        // 	Add to the scene
-        thisObject.faceModelMesh.add(thisObject.glassesMesh);
+    //     // 	Add to the scene
+    //     thisObject.faceModelMesh.add(thisObject.glassesMesh);
 
-        // 	Offset glasses' transform with default offset
-        thisObject.updateGlassesOffsetPosition(GlassesTransformDict);
-        thisObject.updateGlassesOffsetScale(GlassesTransformDict);
-      },
-      // called while loading is progressing
-      (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-      },
-      // called when loading has errors
-      (error) => {
-        console.log(error);
-      }
-    );
+    //     // 	Offset glasses' transform with default offset
+    //     thisObject.updateGlassesOffsetPosition(GlassesTransformDict);
+    //     thisObject.updateGlassesOffsetScale(GlassesTransformDict);
+    //   },
+    //   // called while loading is progressing
+    //   (xhr) => {
+    //     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    //   },
+    //   // called when loading has errors
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
 
     // 	Add scene lights
     const dirLight = new THREE.DirectionalLight(0xf4e99b, 1);
@@ -181,6 +182,46 @@ export class Renderer {
     // 	For saving Mesh to file
     // setTimeout( ()=>{ this.exportToOBJ() }, 3000);
     // setTimeout( ()=>{ this.exportToJSON() }, 3000);
+  }
+
+  setGlassesModel(url) {
+    this.updateGlassesModel(url);
+  }
+  updateGlassesModel(url) {
+    // Clear the existing glasses mesh
+    if (this.glassesMesh) {
+      this.faceModelMesh.remove(this.glassesMesh);
+      this.glassesMesh = null;
+    }
+
+    const gltfLoader = new GLTFLoader();
+
+    // Load a new Glasses Model
+    gltfLoader.load(
+      url,
+      (gltf) => {
+        // Get the glasses Object3D
+        this.glassesMesh = gltf.scene.children[0];
+
+        // Copy default glasses' transform
+        this.glassesMesh_defaultPosition.copy(this.glassesMesh.position);
+        this.glassesMesh_defaultQuarternion.copy(this.glassesMesh.quaternion);
+        this.glassesMesh_defaultScale.copy(this.glassesMesh.scale);
+
+        // Add to the scene
+        this.faceModelMesh.add(this.glassesMesh);
+
+        // Offset glasses' transform with default offset
+        this.updateGlassesOffsetPosition(GlassesTransformDict);
+        this.updateGlassesOffsetScale(GlassesTransformDict);
+      },
+      (xhr) => {
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   //
@@ -238,13 +279,13 @@ export class Renderer {
   }
 
   updateSceneRenderOption() {
-    if (this.glassesMesh !== undefined) {
-      // 	The Glasses Mesh is a multi-component mesh.
-      // 	If we want to set the material visibility then we will have to set all of them.
-      // 	The simpler way is to set the parent mesh visibility which would
-      // 	recursively hide all the children components if set to be invisible
-      this.glassesMesh.visible = this.renderOptions.isGlasses;
-    }
+    // if (this.glassesMesh !== undefined) {
+    //   // 	The Glasses Mesh is a multi-component mesh.
+    //   // 	If we want to set the material visibility then we will have to set all of them.
+    //   // 	The simpler way is to set the parent mesh visibility which would
+    //   // 	recursively hide all the children components if set to be invisible
+    //   this.glassesMesh.visible = this.renderOptions.isGlasses;
+    // }
 
     if (this.faceModelMesh !== undefined) {
       // 	Simply set the material visibility

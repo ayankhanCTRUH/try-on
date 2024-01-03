@@ -7,12 +7,26 @@ window.addEventListener("load", main);
 
 function main() {
   const videoElement = document.getElementById("input_video");
+  const outputCanvas = document.getElementById("output_canvas");
+  const renderer = new Renderer(outputCanvas, "./glasses1.gltf");
+  renderer.setGlassesModel("./glasses1.gltf");
+  const image1 = document.getElementById("image1");
+  const image2 = document.getElementById("image2");
+
+  image1.addEventListener("click", function () {
+    image1.classList.add("selected");
+    image2.classList.remove("selected");
+    renderer.setGlassesModel("./glasses1.gltf");
+  });
+
+  image2.addEventListener("click", function () {
+    image2.classList.add("selected");
+    image1.classList.remove("selected");
+    renderer.setGlassesModel("./glasses2.gltf");
+  });
+
   // 	Hide input video
   videoElement.style.display = "none";
-
-  const outputCanvas = document.getElementById("output_canvas");
-  // 	Construct the Renderer
-  const renderer = new Renderer(outputCanvas);
 
   // 	FPS Stats
   const stats = Stats();
