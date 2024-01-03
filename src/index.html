@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>12 - Materials</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<head>
-	<meta charset="utf-8">
-	<script type="importmap">
-		{
-			"imports": {
-				"three": "./three/build/three.module.js",
-
-				"three/examples/jsm/controls/OrbitControls":"./jsm/controls/OrbitControls.js",
-				"three/examples/jsm/loaders/OBJLoader":"./jsm/loaders/OBJLoader.js",
-				"three/examples/jsm/loaders/GLTFLoader":"./jsm/loaders/GLTFLoader.js",
-				"three/examples/jsm/libs/stats.module":"./jsm/libs/stats.module.js",
-				"three/examples/jsm/exporters/OBJExporter":"./jsm/exporters/OBJExporter.js",
-				"three/examples/jsm/exporters/GLTFExporter":"./jsm/exporters/GLTFExporter.js",
-            	"dat.gui":"./dat.gui/build/dat.gui.module.js",
-				"three-wtm":"./three-wtm/build/three-wtm.module.js",
-				"wwobjloader2":"./wwobjloader2/build/wwobjloader2.module.js",
-				"file-saver":"./file-saver/src/FileSaver.js"
-			}
-		}
-	</script>
-	<script <script src="main.js" type="module"></script>
-</head>
-
-<body>
-	<div class="container">
-		<video id="input_video"></video>
-		<canvas id="output_canvas" width="1024px" height="768px"></canvas>
-	</div>
-</body>
-
+  <body>
+    <div class="container">
+      <video id="input_video"></video>
+      <canvas id="output_canvas" width="1280px" height="720px"></canvas>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
 </html>

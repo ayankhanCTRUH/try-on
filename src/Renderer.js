@@ -80,7 +80,7 @@ export class Renderer {
 
     // 	Load a custom face texture
     this.faceTexture = new THREE.TextureLoader().load(
-      "face_effect_texture_1.png"
+      "./face_effect_texture_1.png"
     );
     this.faceTexture.flipY = false;
 
@@ -114,7 +114,7 @@ export class Renderer {
     // 	Load a base mesh
     gltfLoader.load(
       // resource URL
-      "face_base.gltf",
+      "./face_base.gltf",
       // called when the resource is loaded
       onFaceBaseLoaded,
       // called while loading is progressing
@@ -130,7 +130,7 @@ export class Renderer {
     // Load a Glasses Model
     gltfLoader.load(
       // resource URL
-      "glasses.gltf",
+      "./glasses.gltf",
       // called when the resource is loaded
       (gltf) => {
         // 	Get the glasses Object3D
