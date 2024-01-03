@@ -4,7 +4,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { OBJLoader2 } from "wwobjloader2";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OBJExporter } from "three/examples/jsm/exporters/OBJExporter";
-
 import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";
 
 import "file-saver";
@@ -130,9 +129,10 @@ export class Renderer {
     // Load a Glasses Model
     gltfLoader.load(
       // resource URL
-      "./glasses.gltf",
+      "./glasses2.gltf",
       // called when the resource is loaded
       (gltf) => {
+        console.log(gltf.scene.children);
         // 	Get the glasses Object3D
         thisObject.glassesMesh = gltf.scene.children[0];
 
