@@ -1,0 +1,25 @@
+{
+	"name": "facemeshapp",
+	"version": "1.0.0",
+	"description": "A Simple FaceMesh App",
+	"main": "main.js",
+	"scripts": {
+		"start": "node app.js"
+	},
+	"author": "takkasila",
+	"license": "ISC",
+	"dependencies": {
+		"@mediapipe/camera_utils": "^0.3.1640029074",
+		"@mediapipe/control_utils": "^0.6.1629159505",
+		"@mediapipe/drawing_utils": "^0.3.1620248257",
+		"@mediapipe/face_mesh": "^0.4.1633559619",
+		"dat.gui": "^0.7.7",
+		"express": "^4.17.2",
+		"file-saver": "^2.0.5",
+		"three-wtm": "^1.0.1",
+		"wwobjloader2": "^4.0.1"
+	},
+	"devDependencies": {
+		"three": "^0.136.0"
+	}
+}
