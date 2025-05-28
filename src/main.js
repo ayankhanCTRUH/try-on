@@ -1,5 +1,4 @@
 import Stats from "three/examples/jsm/libs/stats.module";
-
 import { GUI } from "dat.gui";
 import { Renderer, GlassesTransformDict, RenderOptions } from "./Renderer.js";
 
@@ -25,14 +24,11 @@ function main() {
     renderer.setGlassesModel("./glasses2.gltf");
   });
 
-  // 	Hide input video
   videoElement.style.display = "none";
 
-  // 	FPS Stats
   const stats = Stats();
   document.body.appendChild(stats.dom);
 
-  // 	Initialize MediaPipe FaceMesh
   const faceMesh = new FaceMesh({
     locateFile: (file) => {
       return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
@@ -50,7 +46,6 @@ function main() {
     minTrackingConfidence: 0.5,
   });
 
-  // 	Set callback on FaceMesh output result
   faceMesh.onResults((faceMeshResults) => {
     renderer.render(faceMeshResults);
 
@@ -67,15 +62,14 @@ function main() {
   });
   camera.start();
 
-  // 	GUI
+  // 	debugger
   const gui = new GUI();
-  // 		Camera
   const cameraFolder = gui.addFolder("Camera");
   cameraFolder.add(renderer.camera, "fov", 10, 100).onChange(() => {
     renderer.camera.updateProjectionMatrix();
   });
 
-  // 		Glasses Offset
+  // 	offset
   const glassesTransformDict = GlassesTransformDict;
   const glassesFolder = gui.addFolder("Glasses");
   glassesFolder
@@ -91,18 +85,15 @@ function main() {
     .add(glassesTransformDict, "scale", 1, 2, 0.001)
     .onChange(() => renderer.updateGlassesOffsetScale(glassesTransformDict));
 
-  // 		Render Mode
   const renderOptionFolder = gui.addFolder("RenderOptions");
   renderOptionFolder
     .add(renderer, "isOrbitalView")
     .onChange((isOrbitalView) => {
-      // 	Toggle to Orbit view
       if (isOrbitalView) {
         renderer.orbitControls.enabled = true;
         renderer.camera.position.set(5, 5, 5);
         renderer.camera.lookAt(0, 0, 0);
       }
-      // 	Toggle to AR view
       else {
         renderer.orbitControls.enabled = false;
         renderer.camera.position.set(0, 0, 0);
